@@ -49,24 +49,23 @@
                     </div>
 
                     <!-- Right Side -->
-                    <div class="hidden sm:flex sm:items-center sm:ml-6">
+                    <div class="hidden sm:flex sm:items-center sm:ml-6 space-x-4">
                         <!-- Language Switcher -->
-                        <div class="mr-4">
-                            <button onclick="switchLanguage('{{ app()->getLocale() === 'am' ? 'en' : 'am' }}')" 
-                                    class="px-3 py-1 text-sm text-gray-700 hover:text-gray-900 border border-gray-300 rounded-md">
-                                {{ app()->getLocale() === 'am' ? 'English' : 'አማርኛ' }}
-                            </button>
-                        </div>
+                        <a href="{{ route('language.switch', ['locale' => app()->getLocale() === 'am' ? 'en' : 'am']) }}" 
+                           class="px-3 py-1 text-sm text-gray-700 hover:text-gray-900 border border-gray-300 rounded-md">
+                            {{ app()->getLocale() === 'am' ? 'English' : 'አማርኛ' }}
+                        </a>
 
                         @auth
-                        <!-- User Dropdown -->
-                        <div class="relative">
-                            <button class="flex items-center text-sm font-medium text-gray-500 hover:text-gray-700">
-                                <span>{{ auth()->user()->name }}</span>
-                                <svg class="ml-2 h-4 w-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/>
-                                </svg>
-                            </button>
+                        <!-- User Info and Logout -->
+                        <div class="flex items-center space-x-3">
+                            <span class="text-sm font-medium text-gray-700">{{ auth()->user()->name }}</span>
+                            <form method="POST" action="{{ route('logout') }}" class="inline">
+                                @csrf
+                                <button type="submit" class="text-sm text-red-600 hover:text-red-900">
+                                    {{ app()->getLocale() === 'am' ? 'ውጣ' : 'Logout' }}
+                                </button>
+                            </form>
                         </div>
                         @endauth
                     </div>
